@@ -81,6 +81,9 @@ Na Aba Script podemos ver que um script foi gerado para realizar cada operação
 
 ![glue14](./img/glue/glue14.png)
 
+
 Depois de todas essas configurações chegou a hora de utilizarmos nossa pipeline! Mas antes precisamos de algo indipensavel: permissões. Para esta etapa do processo você pode criar uma role no IAM com apenas acesso ao S3 para que o Glue possa realizar as operações de ETL nos objetos armazenados no S3. Porém para garatir que os proximos passos do projeto sigam sem provlemas de permissões daremos todas as permições necessarias a essa role que são:
 
 ![gluerole](./img/glue/gluerole.png)
+
+A nomearemos de *glue-acc-s3* e concederemos as politicas: *AmazonS3FullAccess*, *AWSGlueServiceRole*, *CloudWathLogsFullAccess*(esta será necessaria para usarmos o Crawler do Glue).
