@@ -76,3 +76,11 @@ Após realizarmos todas as operações basta carregar nossos arquivos em um dest
 Assim vamos ter este resultado como nossa pipeline final:
 
 ![glue13](./img/glue/glue13.png)
+
+Na Aba Script podemos ver que um script foi gerado para realizar cada operação da nossa pipeline. Este sendo uma otima ferramenta para iniciantes na area de engenharia de dados para endenter melhor cada operação dispoviel no Visual ETL.
+
+![glue14](./img/glue/glue14.png)
+
+Depois de todas essas configurações chegou a hora de utilizarmos nossa pipeline! Mas antes precisamos de algo indipensavel: permissões. Para esta etapa do processo você pode criar uma role no IAM com apenas acesso ao S3 para que o Glue possa realizar as operações de ETL nos objetos armazenados no S3. Porém para garatir que os proximos passos do projeto sigam sem provlemas de permissões daremos todas as permições necessarias a essa role que são:
+
+![gluerole](./img/glue/gluerole.png)
