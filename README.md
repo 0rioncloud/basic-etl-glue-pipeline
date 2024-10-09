@@ -20,6 +20,43 @@ O Dataset utilizado trata-se do [Spotify Dataset 2023](https://www.kaggle.com/da
 # S3 Staging Layer e Data warehouse
 O primeiro passo a se fazer neste projeto é criar nosso sistema de armazenamento que simulara nossa area de staging e nossa data warehouse. Para isso vamos usar o Amazon S3.
 
-![s31](./imag/s3/s31.png)
+![s31](./img/s3/s31.png)
 
 Aqui criamos um Bucket S3 com nome de *data-eng-spotfiy* e no mesmo vamos criar duas pastas uma que será nossa Stanging layer com nome *staging* e ou que sera nossa Data Warehouse com nome de *datawarehouse*.
+
+Logo em seguida vamos fazer upload dos nossos arquivos preprocessados na nossa staging layer
+
+![s31](./img/s3/s32.png)
+
+# Pipeline ETL com Glue
+Aqui que vamos exercitar nossos conhecimentos de engenharia de dados construindo uma pipeline de ETL para transformar nossos dados e carregalos em nossa *datawarehouse*.
+A transformação tera o objetivo de torna-los mais estruturados para posteriormente usa-los para popular um banco de dados no Glue Data Catalog
+Glue é uma ferramenta poderosa que nos tras a capacidade de construir de forma simples uma pipeline de ETL por meio do seu AWS Glue Studio usando o [Visual ETL](https://docs.aws.amazon.com/glue/latest/dg/edit-nodes-chapter.html). Clicando nos campos indicados chegamos a construção do nosso primeiro Job.
+
+![glue1](./img/glue/glue1.png) ![glue2](./img/glue/glue2.png)
+
+Aqui vamos começar adicionando 3 Nodes de Source. Que serão as nossas fontes de dados presentes na nossa *staging* layer, cada Node será um de nossos arquivos CSV. É interessante notar que Amazon S3 é apenas uma das possiveis fontes de dados que o Glue pode trabalhar. Temos fontes como Banco de dados relacionais, Apache Kafka e até mesmo Amazon Kinesis para trabalharmos com streaming de dados em tempo real.
+
+![glue3](./img/glue/glue3.png)
+
+Agora com nossos nodes de fonte adicionados vamos configura-los indicando o seu nome, o caminho que estão armazenados no S3 atravez do S3 URL de cada arquivo e indicar o formato de cada um deles. O S3 URL de cada um deles pode ser encontrado acessando o objeto no Bucket S3 ou atravez do botão "*Browse S3" indicado no campo especificado.
+Faremos isso para *artists*:
+
+![glue6](./img/glue/glue6.png)
+
+Para *albums*:
+
+![glue7](./img/glue/glue7.png)
+
+E finalmente para *track*:
+
+![glue9](./img/glue/glue9.png)
+
+Agora com nossas Sources configuradas vamos realizar fazer um Node de transformação realizando um Join entre nossas fontes *artists* e *albums*
+
+![glue4](./img/glue/glue4.png)
+
+Para conectar nosso Join com nossas fontes pasta puxar uma linha do ponto presente no node da fonte até o mesmo ponto na parte superior do Join.
+Vamos configurar o nome *artists & albums*, o tipo Inner join e join conditions que sera *id = artist_id*.
+
+![glue8](./img/glue/glue8.png)
