@@ -60,3 +60,19 @@ Para conectar nosso Join com nossas fontes pasta puxar uma linha do ponto presen
 Vamos configurar o nome *artists & albums*, o tipo Inner join e join conditions que sera *id = artist_id*.
 
 ![glue8](./img/glue/glue8.png)
+
+Com nosso join *artists & albums* pronto vamos realizar outra operação de join de mesmo tipo desta vez com nossa fonte track e nosso join *artists & albums* de nome *Join with track*. Aqui a join conditions será *track_id = track_id*
+
+![glue10](./img/glue/glue10.png)
+
+Com nossas Fontes conectadas atravez de nosso Nodes de Join, vamos realizar uma operação de Drop Fields para excluir campos desnecessarios ou duplicados. No nosso caso os campos .track id é duplicado com track_id e id é duplicado com artists_id.
+
+![glue11](./img/glue/glue11.png)
+
+Após realizarmos todas as operações basta carregar nossos arquivos em um destino. Nossa *datawarehouse* criada no S3 será nosso alvo. Aqui será necessario definir nosso formato como parquet e compression type para snappy para Querys mais rapidas.
+
+![glue12](./img/glue/glue12.png)
+
+Assim vamos ter este resultado como nossa pipeline final:
+
+![glue13](./img/glue/glue13.png)
