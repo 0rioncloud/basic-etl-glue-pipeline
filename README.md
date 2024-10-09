@@ -6,7 +6,7 @@ Posteriormente iremos usar o [AWS Athena](https://aws.amazon.com/pt/athena/) par
 Como sempre estarei providenciando imagens para ajudar na compreender melhor cada passo e links utéis da documentação para ajudar a compreensão dos conceitos abordados.
 
 # Arquitetura
-[!diagrama](./img/diagram.png)
+![diagrama](./img/diagram.png)
 
 # Technologias ultilizadas
 - AWS Glue
