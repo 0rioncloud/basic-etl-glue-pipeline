@@ -87,3 +87,7 @@ Depois de todas essas configurações chegou a hora de utilizarmos nossa pipelin
 ![gluerole](./img/glue/gluerole.png)
 
 A nomearemos de *glue-acc-s3* e concederemos as politicas: *AmazonS3FullAccess*, *AWSGlueServiceRole*, *CloudWathLogsFullAccess*(esta será necessaria para usarmos o Crawler do Glue).
+
+Porfim vamos acessar Job details e associar a IAM Role a nossa pipeline, usaremos Worker type G.1X e Request number of Workers vamos colocar para 5 por se tratar de um projeto simples de fonte de dados pequeno.
+
+ ![glue16](./img/glue/glue16.png) ![glue17](./img/glue/glue17.png)
