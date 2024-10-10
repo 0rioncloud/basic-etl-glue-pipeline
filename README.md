@@ -104,3 +104,45 @@ Glue além de te permitir criar sua pipeline ele também te permite monitora-la 
 Como resultado da nossa pipeline sendo executada nossos dados já transformados estarão em nossa *datawarehouse*. Com eles nesta área será necessario construir um banco de dados estruturado em tabelas deles para assim conseguirmos utilzar Querys SQL nesses dados.
 Neste Caso usaremos um crawler que criarar os meta-dados necessarios para popular um banco de dados no Glue Catalog.
 
+## Criando um banco de dados no Glue Catalog
+No vamos acessar o Glue e em seu painel de controle acessar o Data Catalog na sessão databases. Aqui criaremos uma database com nome de *spotfiy-project*. Nosso banco de dados estará vazio, porém logo em seguida criaremos um crawler para popula-lo.
+
+![gluedatabasev1](./img/glue-catalog/gluedatabasev1.png)
+
+Com nosso banco de dados criado navegaremos até a sessão crawlers e vamos adcionar um novo Crawler escolhendo seu nome.
+
+![crawler1](./img/crawler/crawler1.png)
+
+No proximo passo escolhemos nossa data source *datawarehouse* e marcamos que nossos dados não esta mapeado com Glue tables.
+
+![crawler04](./img/crawler/crawler04.png)
+![crawler0](./img/crawler/crawler0.png)
+
+Em permissões de segurança usaremos a mesma role já utilizada. Interessante notar que o crawler exige permissões para escrever logs no CloudWatch Logs, então se sua Role não tiver essas permições seu Crawler não ira funcionar.
+
+![crawler01](./img/crawler/crawler01.png)
+
+Para finalizar a criação do nosso crawler vamos adcionar um banco de dado alvo, em nosso caso *spotfiy-project* e criar nosso crawler.
+
+![crawler02](./img/crawler/crawler02.png)
+![crawler2](./img/crawler/crawler2.png)
+
+Finalizando nosso Crawler resta roda-lo para que o mesmo popule nosso banco de dados automaticamente. Também é possivel ver detalhes da execução de nosso crawler.
+
+![crawler3](./img/crawler/crawler3.png)
+![crawler4](./img/crawler/crawler4.png)
+
+## Explorando Glue Catalog
+Aqui já podemos ver o resultado do nosso crawler na nossa database, o mesmo criou uma table:
+
+![gluedatabase](./img/glue-catalog/gluedatabase.png)
+
+Acessando ela conseguimos ver toda a tabela seu formato de output e seu schema, bem como podemos edita-lo atravez do editor JSON.
+
+![gluedatabase3](./img/glue-catalog/gluedatabase3.png)
+![gluedatabase1](./img/glue-catalog/gluedatabase1.png)
+![gluedatabase2](./img/glue-catalog/gluedatabase2.png)
+
+Assim conseguimos popular de forma dinamica usando um crawler nosso banco de dados no Glue Catalog. Esse Banco de Dados será crucial na proxima etapa do projeto.
+
+# Trabalhando com Querys SQL usando o Athena
