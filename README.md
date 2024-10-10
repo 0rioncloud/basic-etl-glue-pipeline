@@ -91,3 +91,7 @@ A nomearemos de *glue-acc-s3* e concederemos as politicas: *AmazonS3FullAccess*,
 Porfim vamos acessar Job details e associar a IAM Role a nossa pipeline, usaremos Worker type G.1X e Request number of Workers vamos colocar para 5 por se tratar de um projeto simples de fonte de dados pequeno.
 
  ![glue16](./img/glue/glue16.png) ![glue17](./img/glue/glue17.png)
+
+Com nossa pipeline pronta basta clicarmos em Run e ela ira realizar seu trabalho fazendo as transformações nos dados e armazenando eles em nossa *datawarehouse*
+
+![glue15](./img/glue/glue15.png)
