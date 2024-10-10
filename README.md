@@ -92,6 +92,15 @@ Porfim vamos acessar Job details e associar a IAM Role a nossa pipeline, usaremo
 
  ![glue16](./img/glue/glue16.png) ![glue17](./img/glue/glue17.png)
 
-Com nossa pipeline pronta basta clicarmos em Run e ela ira realizar seu trabalho fazendo as transformações nos dados e armazenando eles em nossa *datawarehouse*
+Com nossa pipeline pronta basta clicarmos em Run e ela ira realizar seu trabalho fazendo as transformações nos dados e armazenando eles em nossa *datawarehouse*.
 
 ![glue15](./img/glue/glue15.png)
+
+Glue além de te permitir criar sua pipeline ele também te permite monitora-la atravez de metricas. Ao clicar em Run para executar sua pipeline, logo mais algumas metricas podem ser observadas dentro do proprio Glue.
+
+![gluemetrics](./img/glue-metrics/gluemetrics.png) ![gluemetrics1](./img/glue-metrics/gluemetrics1.png) ![gluemetrics2](./img/glue-metrics/gluemetrics2.png)
+
+# Usando um Glue Crawler para popular um banco de dados no Glue Catalog
+Como resultado da nossa pipeline sendo executada nossos dados já transformados estarão em nossa *datawarehouse*. Com eles nesta área será necessario construir um banco de dados estruturado em tabelas deles para assim conseguirmos utilzar Querys SQL nesses dados.
+Neste Caso usaremos um crawler que criarar os meta-dados necessarios para popular um banco de dados no Glue Catalog.
+
