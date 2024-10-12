@@ -1,7 +1,7 @@
 # DESCRIÇÃO
 A Nuvem da AWS nos trás tecnologias para diversas industrias e campos. Uma que vem me chamando atenção é a area de dados, especialmente a de Engenharia de dados. Entre os serviços que se destacam temos o [AWS Glue](https://aws.amazon.com/pt/glue/). Ele é um serviço de integração de dados sem servidor, que torna possivel a preparação de dados de forma simples, pratica e barata em qualquer escala. Com ele é possivel conectar-se a mais de 70 fontes diferentes de dados, visualização, contrução e monitoramento de pipelines de [ETL](https://aws.amazon.com/pt/what-is/etl/).
 
-Este projeto foi feito com o intuito de ajudar a exercitar fundamentos de Engenharia de dados utilizando-se dos serviços de engenharia de dados da nuvem da AWS. Nele foi contruido uma pipeline basica de ETL com ultilizando S3 para simular nosso armazenamento na [staging layer](https://kb.ufla.br/books/termos-e-definicoes-governanca-de-dados/page/staging-area)  e nossa [data warehouse](https://aws.amazon.com/pt/what-is/data-warehouse/). Glue construirá nossa pipeline e utilizaremos o mesmo para criar um [Glue Crawler](https://docs.aws.amazon.com/pt_br/glue/latest/dg/add-crawler.html) para popular um banco de dados no [Glue Catalog](https://docs.aws.amazon.com/pt_br/glue/latest/dg/start-data-catalog.html).
+Este projeto foi feito com o intuito de ajudar a exercitar fundamentos de Engenharia de dados utilizando-se dos serviços de engenharia de dados da nuvem da AWS. Nele foi contruido uma pipeline basica de ETL com ultilizando S3 para simular nosso armazenamento na [staging layer](https://kb.ufla.br/books/termos-e-definicoes-governanca-de-dados/page/staging-area)  e nossa [data warehouse](https://aws.amazon.com/pt/what-is/data-warehouse/). Glue construirá nossa pipeline e utilizaremos o mesmo para criar um [Glue Crawler](https://docs.aws.amazon.com/pt_br/glue/latest/dg/add-crawler.html) para popular uma database no [Glue Catalog](https://docs.aws.amazon.com/pt_br/glue/latest/dg/start-data-catalog.html).
 Posteriormente iremos usar o [AWS Athena](https://aws.amazon.com/pt/athena/) para realizar [Querys SQL](https://aws.amazon.com/pt/what-is/sql/) no nosso banco de dados do Glue Catalog. Por fim usaremos o [QuickSight](https://aws.amazon.com/pt/quicksight/) para construir visualizações dos nossos dados.
 Como sempre estarei providenciando imagens para ajudar na compreender melhor cada passo e links utéis da documentação para ajudar a compreensão dos conceitos abordados.
 
@@ -101,15 +101,15 @@ Glue além de te permitir criar sua pipeline ele também te permite monitora-la 
 ![gluemetrics](./img/glue-metrics/gluemetrics.png) ![gluemetrics1](./img/glue-metrics/gluemetrics1.png) ![gluemetrics2](./img/glue-metrics/gluemetrics2.png)
 
 # Usando um Glue Crawler para popular um banco de dados no Glue Catalog
-Como resultado da nossa pipeline sendo executada nossos dados já transformados estarão em nossa *datawarehouse*. Com eles nesta área será necessario construir um banco de dados estruturado em tabelas deles para assim conseguirmos utilzar Querys SQL nesses dados.
-Neste Caso usaremos um crawler que criarar os meta-dados necessarios para popular um banco de dados no Glue Catalog.
+Como resultado da nossa pipeline sendo executada nossos dados já transformados estarão em nossa *datawarehouse*. Com eles nesta área será necessario construir uma database no Glue Catalog estruturado em tabelas deles para assim conseguirmos utilzar Querys SQL nesses dados.
+Neste Caso usaremos um crawler que criarar os meta-dados necessarios para popular a nossa database no Glue Catalog.
 
-## Criando um banco de dados no Glue Catalog
-No vamos acessar o Glue e em seu painel de controle acessar o Data Catalog na sessão databases. Aqui criaremos uma database com nome de *spotfiy-project*. Nosso banco de dados estará vazio, porém logo em seguida criaremos um crawler para popula-lo.
+## Criando uma database no Glue Catalog
+No vamos acessar o Glue e em seu painel de controle acessar o Data Catalog na sessão databases. Aqui criaremos uma database com nome de *spotfiy-project*. Nossa database estará vazio, porém logo em seguida criaremos um crawler para popula-lo.
 
 ![gluedatabasev1](./img/glue-catalog/gluedatabasev1.png)
 
-Com nosso banco de dados criado navegaremos até a sessão crawlers e vamos adcionar um novo Crawler escolhendo seu nome.
+Com nossa database criado navegaremos até a sessão crawlers e vamos adcionar um novo Crawler escolhendo seu nome.
 
 ![crawler1](./img/crawler/crawler1.png)
 
@@ -122,12 +122,12 @@ Em permissões de segurança usaremos a mesma role já utilizada. Interessante n
 
 ![crawler01](./img/crawler/crawler01.png)
 
-Para finalizar a criação do nosso crawler vamos adcionar um banco de dado alvo, em nosso caso *spotfiy-project* e criar nosso crawler.
+Para finalizar a criação do nosso crawler vamos adcionar uma database alvo, em nosso caso *spotfiy-project* e criar nosso crawler.
 
 ![crawler02](./img/crawler/crawler02.png)
 ![crawler2](./img/crawler/crawler2.png)
 
-Finalizando nosso Crawler resta roda-lo para que o mesmo popule nosso banco de dados automaticamente. Também é possivel ver detalhes da execução de nosso crawler.
+Finalizando nosso Crawler resta roda-lo para que o mesmo popule a database automaticamente. Também é possivel ver detalhes da execução de nosso crawler.
 
 ![crawler3](./img/crawler/crawler3.png)
 ![crawler4](./img/crawler/crawler4.png)
@@ -143,6 +143,44 @@ Acessando ela conseguimos ver toda a tabela seu formato de output e seu schema, 
 ![gluedatabase1](./img/glue-catalog/gluedatabase1.png)
 ![gluedatabase2](./img/glue-catalog/gluedatabase2.png)
 
-Assim conseguimos popular de forma dinamica usando um crawler nosso banco de dados no Glue Catalog. Esse Banco de Dados será crucial na proxima etapa do projeto.
+Assim conseguimos popular de forma dinamica usando um crawler uma database no Glue Catalog. Esse Banco de Dados será crucial na proxima etapa do projeto.
 
 # Trabalhando com Querys SQL usando o Athena
+
+SQL é uma poderosa ferramenta de consulta para banco de dados relacionais. Infelizmente para nosso caso nossos dados são objetos armazenados no Amazon S3, para resolvermos este problema utilizaremos o AWS Athena. Ele trata-se de uma ferramenta de analise de dados e consulta que torna possivel usar comandos SQL em um bucket s3 alvo. O Athena tem a capacidade de se integrar com diversos serviços da AWS entre eles esta o Glue Catalog.
+
+Acessando o painel do Athena podemos navegar diretamente para o Editor de consultas. Aqui já é póssivel ver nosso Database vindo diretamente do Glue Catalog
+
+![athena1](./img/athena/athena1.png)
+
+Antes de começarmos a usar o Athena precisamos configurar um destino para nossas consultas. Indo em configurações e gerenciar para escolhermos um destino. Aqui iremos criar um novo bucket para receber o output do Athena chamado *athena-output-spotfiy*.
+
+![athena2](./img/athena/athena2.png)
+![athena4](./img/athena/athena4.png)
+
+Agora com nosso destino preparado, podemos executar uma Query SQL em nossa database. Vamos executar uma query simples e observar o resultado no nosso bucket de destino.
+
+![athena6](./img/athena/athena6.png)
+
+Aqui observe o resultado da nossa query, vamos verificar o arquivo no bucket para checkar se o resultado é consistente.
+
+![athena7](./img/athena/athena7.png)
+
+Indo até nosso bucket podemos observar que o mesmo cria sub-diretorios com nomeclatura que indica a data da query.
+
+![athena8](./img/athena/athena8.png)
+![athena9](./img/athena/athena9.png)
+
+Vamos pegar o primeiro item como exemplo.
+
+![athena11](./img/athena/athena11.png)
+
+Ao baixarmos o obejto e abrirmos ele vamos nos deparar com o exato resultado da nossa query SQL.
+
+![athena10](./img/athena/athena10.png)
+
+Como podemos observar o AWS Athena é uma poderosa ferramenta que pode ser utilizada juntamento com S3 para não só termos acesso a pesquisas escalaveis como também conseguirmos subdividir os itens de interesses para nosso caso de uso em uma imensa quantidade de dados.
+
+# QuickSight e BI
+[BI](https://aws.amazon.com/pt/what-is/business-intelligence/) ou Bussiness Inteligence é um assunto muito discutido em diversas industrias. Com a crescente quatidade de dados que produzimos temos a capacidade de analisa-los e conseguir insights sobre nosso negocio.
+Na pespectiva da AWS o Amazon Quicksights é a ferramente de BI em escala na nuvem.
