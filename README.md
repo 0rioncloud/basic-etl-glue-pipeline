@@ -188,3 +188,50 @@ Na pespectiva da AWS o Amazon Quicksights é uma ferramenta de BI em escala na n
  ## Criando conta QuickSight e Dataset
  primeiro vamos acessar a pagina do QuickSight atravez do console da AWS. Nele vamos criar nossa conta fornecendo os dados requisitados.
  
+![quickcr1](./img/quick/quikcr1.png)
+
+Aqui também será necessário marcar a detecção automatica em alguns serviços. No nosso caso apenas S3 e Athena. Criar uma conta no QuickSight é gratuito, lembre-se de desmarcar esse conteudo adcional para não inferir nenhum custo!
+
+![quickcr2](./img/quick/quickcr2.png)
+
+Com nossa conta criado essa será sua tela inicial.
+
+![quick1](./img/quick/quick1.png)
+
+QuickSight nos tras algumas amostragem de dados para entenermos melhor a plataforma. Este projeto usara o Athena para construir um dataset personalizado apartir dos nossos dados. Com esse dataset será possivel construir visualizações graficas apartir dos nossos dados.
+Clicando em Datasets.
+
+![datasetqsi](./img/quick/datasetqsi.png)
+
+Escolhemos nossa data source, neste caso Athena e iniciamos o processo para criação do nosso dataset.
+
+![datasetqs0](./img/quick/datasetqs0.png)
+
+Escolhemos o nome para nosso dataset e automaticamente o QuickSight vai descobrir nossa tabela no Glue Catalog.
+
+![datasetqs1](./img/quick/datasetqs1.png)
+![datasetq2](./img/quick/datasetq2.png)
+
+Selecionando nossa table e deixando todo o resto como padrão só clicar em visualize.
+
+![datasetqs3](./img/quick/datasetqs3.png)
+
+Dataset criado e com todos os itens populados. Agora estamos livres para analisar nossos dados e fazer visualizações.
+
+![quick3](./img/quick/quick3.png)
+
+Este não é um projeto de Analise de Dados mas mostraremos alguns graficos construidos apartir dos dados para ilustrar a eficiencia de utilizar nossos dados já transformados por nossa pipeline.
+
+## Track popularity by Name
+![graf1](./img/quick/graf1.png)
+
+## Album popularty by Name
+![graf2](./img/quick/graf2.png)
+
+## Track popularity by Name Horizontal Bar
+![graf3](./img/quick/graf3.png)
+
+# Conclusão
+Neste projeto, implementamos uma pipeline de ETL utilizando o AWS Glue, transformamos dados, e os carregamos em uma data warehouse no Amazon S3. Em seguida, utilizamos o Glue Crawler para popular um banco de dados no Glue Catalog, realizamos consultas SQL no AWS Athena, e finalmente criamos visualizações com o Amazon QuickSight.
+
+Este projeto reforçou a compreensão sobre os conceitos de Engenharia de Dados na AWS e mostrou como construir soluções de ETL de forma prática e eficiente usando os serviços da AWS.
