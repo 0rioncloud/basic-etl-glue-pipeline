@@ -183,4 +183,8 @@ Como podemos observar o AWS Athena é uma poderosa ferramenta que pode ser utili
 
 # QuickSight e BI
 [BI](https://aws.amazon.com/pt/what-is/business-intelligence/) ou Bussiness Inteligence é um assunto muito discutido em diversas industrias. Com a crescente quatidade de dados que produzimos temos a capacidade de analisa-los e conseguir insights sobre nosso negocio.
-Na pespectiva da AWS o Amazon Quicksights é a ferramente de BI em escala na nuvem.
+Na pespectiva da AWS o Amazon Quicksights é uma ferramenta de BI em escala na nuvem. Neste projeto vamos fazer uma pequena demonstração da aplicabilidade deste serviço usando nossos dados. A ideia é entender que o resultado da nossa pipeline pode ser utlizado para analise de dados e nos trazer grandes resultados usando os dados certos.
+
+ ## Criando conta QuickSight e Dataset
+ primeiro vamos acessar a pagina do QuickSight atravez do console da AWS. Nele vamos criar nossa conta fornecendo os dados requisitados.
+ 
